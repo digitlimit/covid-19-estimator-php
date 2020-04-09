@@ -53,7 +53,7 @@ class Impact{
 
     public function getSevereCasesByRequestedTime(int $percentage) : int
     {
-        return intval($this->infections_by_requested_time * ($percentage / 100));
+        return intval($this->getInfectionsByRequestedTime() * ($percentage / 100));
     }
 
     public function getHospitalBedsByRequestedTime(int $percentage, int $beds_percentage)
@@ -64,23 +64,23 @@ class Impact{
 
     public function getCasesForICUByRequestedTime(int $percentage) : int
     {
-        return intval($this->infections_by_requested_time * ($percentage / 100));
+        return intval($this->getInfectionsByRequestedTime() * ($percentage / 100));
     }
 
     public function getCasesForVentilatorsByRequestedTime(int $percentage) : int
     {
-        return intval($this->infections_by_requested_time * ($percentage / 100));
+        return intval($this->getInfectionsByRequestedTime() * ($percentage / 100));
     }
 
     public function getDollarsInFlight(){
 
         $days = Helper::resolveTimeToElapseToDays($this->input);
 
-        $cases = $this->infections_by_requested_time *
-            ($this->input['region']['avgDailyIncomePopulation'] / 100) *
+        $cases = $this->getInfectionsByRequestedTime() *
+            $this->input['region']['avgDailyIncomePopulation'] *
             $this->input['region']['avgDailyIncomeInUSD'] *
-            $days;
+            intdiv($days, 3);
 
-        return number_format($cases, 0, '.', '');
+        return number_format($cases, 2, '.', '');
     }
 }
