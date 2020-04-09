@@ -36,13 +36,13 @@ class ImpactEstimator{
     {
         $infected = $this->infectionsByRequestedTime($reported_cases, $estimated_cases) *
             ($percentage / 100);
-        return floor($infected);
+        return intval($infected);
     }
 
     protected function casesForICUByRequestedTime($reported_cases, $estimated_cases, $percentage){
         $cases = $this->infectionsByRequestedTime($reported_cases, $estimated_cases) *
             ($percentage / 100);
-        return floor($cases);
+        return intval($cases);
     }
 
     protected function dollarsInFlight($reported_cases, $estimated_cases){
@@ -60,7 +60,7 @@ class ImpactEstimator{
     protected function casesForVentilatorsByRequestedTime($reported_cases, $estimated_cases, $percentage){
         $cases = $this->infectionsByRequestedTime($reported_cases, $estimated_cases) *
             ($percentage / 100);
-        return floor($cases);
+        return intval($cases);
     }
 
     protected function hospitalBedsByRequestedTime($reported_cases, $estimated_cases, $percentage, $beds_percentage)
@@ -76,7 +76,7 @@ class ImpactEstimator{
             $percentage
         );
 
-        return floor($available_beds - $severe_case_requested_time);
+        return intval($available_beds - $severe_case_requested_time);
     }
 
     protected function calculateAvailableTotalHospitalBeds($totalHospitalBeds, $percentage_available_beds){
