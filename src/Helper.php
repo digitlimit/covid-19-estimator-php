@@ -20,10 +20,10 @@ class Helper{
     }
 
     public static function resolveTimeToElapseToDays(array $input) : int {
-        if ($input['periodType'] === 'weeks') {
+        if ($input['periodType'] == 'weeks') {
             //e.g timeToElapse=38, periodType=weeks = 38 x 7
             return $input['timeToElapse'] * 7;
-        }elseif ($input['periodType'] === 'months') {
+        }elseif ($input['periodType'] == 'months') {
             //e.g timeToElapse=2, periodType=months = 2 x 30
             return $input['timeToElapse'] * 30;
         }else{

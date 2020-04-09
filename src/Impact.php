@@ -82,6 +82,6 @@ class Impact{
                 $this->input['region']['avgDailyIncomeInUSD']
             ) / $days;
 
-        return number_format($dollars, 0, '.', '');
+        return floor($dollars);
     }
 }
