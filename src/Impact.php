@@ -76,11 +76,12 @@ class Impact{
 
         $days = Helper::resolveTimeToElapseToDays($this->input);
 
-        $cases = $this->getInfectionsByRequestedTime() *
-            $this->input['region']['avgDailyIncomePopulation'] *
-            $this->input['region']['avgDailyIncomeInUSD'] *
-            intdiv($days, 3);
+        $dollars = (
+                $this->getInfectionsByRequestedTime() *
+                $this->input['region']['avgDailyIncomePopulation'] *
+                $this->input['region']['avgDailyIncomeInUSD']
+            ) / $days;
 
-        return number_format($cases, 2, '.', '');
+        return number_format($dollars, 0, '.', '');
     }
 }
