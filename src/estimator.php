@@ -5,7 +5,7 @@ use Covid19Estimator\ImpactEstimator;
 
 function covid19ImpactEstimator($data)
 {
-    $input = json_decode($data, true);
+    $input = $data; //json_decode($data, true);
 
     $estimator = new ImpactEstimator($input);
 
