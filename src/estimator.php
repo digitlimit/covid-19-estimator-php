@@ -1,7 +1,6 @@
 <?php
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
-use Covid19Estimator\ImpactEstimator;
 use Covid19Estimator\Impact;
 
 function covid19ImpactEstimator($data)
