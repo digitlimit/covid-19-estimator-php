@@ -74,13 +74,13 @@ class Impact{
 
     public function getDollarsInFlight(){
 
-        $time_to_elapse = Helper::getTimeToElapse($this->input);
+        $days = Helper::resolveTimeToElapseToDays($this->input);
 
         $cases = $this->infections_by_requested_time *
-            $this->input['region']['avgDailyIncomePopulation'] *
+            ($this->input['region']['avgDailyIncomePopulation'] / 100) *
             $this->input['region']['avgDailyIncomeInUSD'] *
-            $time_to_elapse;
+            $days;
 
-        return number_format($cases, 1, '.', '');
+        return number_format($cases, 0, '.', '');
     }
 }
