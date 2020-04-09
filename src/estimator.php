@@ -36,24 +36,24 @@ function covid19ImpactEstimator($data)
 }
 
 
-$c = covid19ImpactEstimator([
-    'region' => [
-        'name'                       => 'Africa',
-        'avgAge'                     => 19.7,
-        'avgDailyIncomeInUSD'        => 4,
-        'avgDailyIncomePopulation'   => 0.73
-    ],
-    'periodType'                    => "days",
-    'timeToElapse'                  => 38,
-    'reportedCases'                 => 2747,
-    'population'                    => 92931687,
-    'totalHospitalBeds'             => 678874
-]);
-
-print("<pre>".print_r($c,true)."</pre>");
-
-function dd($args){
-    $args = func_get_args();
-    call_user_func_array('dump', $args);
-    die();
-}
+//$c = covid19ImpactEstimator([
+//    'region' => [
+//        'name'                       => 'Africa',
+//        'avgAge'                     => 19.7,
+//        'avgDailyIncomeInUSD'        => 4,
+//        'avgDailyIncomePopulation'   => 0.73
+//    ],
+//    'periodType'                    => "days",
+//    'timeToElapse'                  => 38,
+//    'reportedCases'                 => 2747,
+//    'population'                    => 92931687,
+//    'totalHospitalBeds'             => 678874
+//]);
+//
+//print("<pre>".print_r($c,true)."</pre>");
+//
+//function dd($args){
+//    $args = func_get_args();
+//    call_user_func_array('dump', $args);
+//    die();
+//}
