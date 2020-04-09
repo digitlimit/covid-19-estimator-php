@@ -9,7 +9,7 @@ function covid19ImpactEstimator($data)
 
     $estimator = new ImpactEstimator($input);
 
-    //print("<pre>".print_r($estimator->toArray(),true)."</pre>");
+//    print("<pre>".print_r($estimator->toArray(),true)."</pre>");
 
     return $estimator->toArray();
 }
@@ -28,16 +28,16 @@ function covid19ImpactEstimator($data)
 //    'totalHospitalBeds'             => 1380614
 //], JSON_FORCE_OBJECT);
 
-//$c = covid19ImpactEstimator([
-//    'region' => [
-//        'name'                       => 'Africa',
-//        'avgAge'                     => 19.7,
-//        'avgDailyIncomeInUSD'        => 4,
-//        'avgDailyIncomePopulation'   => 0.73
-//    ],
-//    'periodType'                    => "days",
-//    'timeToElapse'                  => 38,
-//    'reportedCases'                 => 2747,
-//    'population'                    => 92931687,
-//    'totalHospitalBeds'             => 678874
-//]);
+$c = covid19ImpactEstimator([
+    'region' => [
+        'name'                       => 'Africa',
+        'avgAge'                     => 19.7,
+        'avgDailyIncomeInUSD'        => 4,
+        'avgDailyIncomePopulation'   => 0.73
+    ],
+    'periodType'                    => "days",
+    'timeToElapse'                  => 38,
+    'reportedCases'                 => 2747,
+    'population'                    => 92931687,
+    'totalHospitalBeds'             => 678874
+]);

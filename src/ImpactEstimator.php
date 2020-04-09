@@ -27,15 +27,40 @@ class ImpactEstimator{
         //there are 10 repeats of 3 days in 30days
 
         //calculate period
-        $period = $this->calculatePeriods($this->input['periodType'], $this->input['timeToElapse']);
+        $period = $this->calculatePeriods($this->input);
 
         return pow(2, $period) * $currently_infected;
     }
 
     protected function severeCasesByRequestedTime($reported_cases, $estimated_cases, $percentage)
     {
-        return $this->infectionsByRequestedTime($reported_cases, $estimated_cases) *
+        $infected = $this->infectionsByRequestedTime($reported_cases, $estimated_cases) *
             ($percentage / 100);
+        return intval($infected);
+    }
+
+    protected function casesForICUByRequestedTime($reported_cases, $estimated_cases, $percentage){
+        $cases = $this->infectionsByRequestedTime($reported_cases, $estimated_cases) *
+            ($percentage / 100);
+        return intval($cases);
+    }
+
+    protected function dollarsInFlight($reported_cases, $estimated_cases){
+
+        $time_to_elapse = $this->calculateTimeToElapse($this->input);
+
+        $cases = $this->infectionsByRequestedTime($reported_cases, $estimated_cases) *
+            $this->input['region']['avgDailyIncomePopulation'] *
+            $this->input['region']['avgDailyIncomeInUSD'] *
+            $time_to_elapse;
+
+        return number_format($cases, 1, '.', '');
+    }
+
+    protected function casesForVentilatorsByRequestedTime($reported_cases, $estimated_cases, $percentage){
+        $cases = $this->infectionsByRequestedTime($reported_cases, $estimated_cases) *
+            ($percentage / 100);
+        return intval($cases);
     }
 
     protected function hospitalBedsByRequestedTime($reported_cases, $estimated_cases, $percentage, $beds_percentage)
@@ -58,8 +83,10 @@ class ImpactEstimator{
         return ($percentage_available_beds / 100) * $totalHospitalBeds;
     }
 
-    protected function calculatePeriods($period_type, $time_to_elapse, $doubles=3)
+    protected function calculatePeriods($input, $doubles=3)
     {
+        $period_type = $input['periodType'];
+        $time_to_elapse = $input['timeToElapse'];
         $period = 1;
 
         //number of days hasn't doubled
@@ -86,13 +113,29 @@ class ImpactEstimator{
         return $period;
     }
 
-    protected function calculate(){
+    protected function calculateTimeToElapse($input){
 
-//        The expected infectionsByRequestedTime 8724480 is not equal to your output 17040
-//   │ Failed asserting that 8724480 matches expected 17040.
-//   │
-//   │ /home/runner/work/covid-19-estimator-php/covid-19-estimator-php/audits/ch-1/challengeOneTest.php:52
-//   │
+        $period_type = $input['periodType'];
+        $time_to_elapse = $input['timeToElapse'];
+
+        switch($period_type)
+        {
+            case 'days':
+                return $time_to_elapse;
+                break;
+
+            case 'weeks':
+                return $time_to_elapse * 7;
+                break;
+
+            case 'months':
+                return $time_to_elapse * 30;
+                break;
+        }
+    }
+
+    protected function calculate()
+    {
         //calculate impact
         $this->output['impact'] = [
             'currentlyInfected' => $this->currentlyInfected($this->input['reportedCases'], 10),
@@ -103,18 +146,50 @@ class ImpactEstimator{
                 $estimated_cases = 10,
                 $percentage = 15,
                 $beds_percentage = 35
+            ),
+            'casesForICUByRequestedTime' => $this->casesForICUByRequestedTime(
+                $this->input['reportedCases'],
+                $estimated_cases = 10,
+                $percentage = 5
+            ),
+            'casesForVentilatorsByRequestedTime' => $this->casesForVentilatorsByRequestedTime(
+                $this->input['reportedCases'],
+                $estimated_cases = 10,
+                $percentage = 2
+            ),
+            'dollarsInFlight' => $this->dollarsInFlight(
+                $this->input['reportedCases'],
+                $estimated_cases = 10
             )
         ];
 
         $this->output['severeImpact'] = [
             'currentlyInfected' => $this->currentlyInfected($this->input['reportedCases'], 50),
             'infectionsByRequestedTime' => $this->infectionsByRequestedTime($this->input['reportedCases'], 50),
-            'severeCasesByRequestedTime' => $this->severeCasesByRequestedTime($this->input['reportedCases'], 50, 15),
+            'severeCasesByRequestedTime' => $this->severeCasesByRequestedTime(
+                $this->input['reportedCases'],
+                $estimated_cases = 50,
+                15
+            ),
             'hospitalBedsByRequestedTime' => $this->hospitalBedsByRequestedTime(
                 $reported_cases = $this->input['reportedCases'],
                 $estimated_cases = 50,
                 $percentage = 15,
                 $beds_percentage = 35
+            ),
+            'casesForICUByRequestedTime' => $this->casesForICUByRequestedTime(
+                $this->input['reportedCases'],
+                $estimated_cases = 50,
+                $percentage = 5
+            ),
+            'casesForVentilatorsByRequestedTime' => $this->casesForVentilatorsByRequestedTime(
+                $this->input['reportedCases'],
+                $estimated_cases = 50,
+                $percentage = 2
+            ),
+            'dollarsInFlight' => $this->dollarsInFlight(
+                $this->input['reportedCases'],
+                $estimated_cases = 50
             )
         ];
 
