@@ -3,13 +3,7 @@
         "phpunit/phpunit": "^9.1"
     },
     "require": {
-        "guzzlehttp/guzzle": "~6.0",
-        "middlewares/fast-route": "^1.0",
-        "middlewares/request-handler": "^1.1",
-        "narrowspark/http-emitter": "^0.7.0",
-        "php-di/php-di": "^6.0",
-        "relay/relay": "^2.0",
-        "zendframework/zend-diactoros": "^2.1"
+        "guzzlehttp/guzzle": "~6.0"
     },
     "autoload": {
         "psr-4": {
