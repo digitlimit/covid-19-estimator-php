@@ -31,6 +31,32 @@ class ImpactEstimator{
         return pow(2, $period) * $currently_infected;
     }
 
+    protected function severeCasesByRequestedTime($reported_cases, $estimated_cases, $percentage)
+    {
+        return $this->infectionsByRequestedTime($reported_cases, $estimated_cases) *
+            ($percentage / 100);
+    }
+
+    protected function hospitalBedsByRequestedTime($reported_cases, $estimated_cases, $percentage, $beds_percentage)
+    {
+        $available_beds = $this->calculateAvailableTotalHospitalBeds(
+            $this->input['totalHospitalBeds'],
+            $beds_percentage
+        );
+
+        $severe_case_requested_time = $this->severeCasesByRequestedTime(
+            $reported_cases,
+            $estimated_cases,
+            $percentage
+        );
+
+        return $available_beds - $severe_case_requested_time;
+    }
+
+    protected function calculateAvailableTotalHospitalBeds($totalHospitalBeds, $percentage_available_beds){
+        return ($percentage_available_beds / 100) * $totalHospitalBeds;
+    }
+
     protected function calculatePeriods($period_type, $time_to_elapse, $doubles=3)
     {
         $period = 1;
@@ -65,11 +91,25 @@ class ImpactEstimator{
         $this->output['impact'] = [
             'currentlyInfected' => $this->currentlyInfected($this->input['reportedCases'], 10),
             'infectionsByRequestedTime' => $this->infectionsByRequestedTime($this->input['reportedCases'], 10),
+            'severeCasesByRequestedTime' => $this->severeCasesByRequestedTime($this->input['reportedCases'], 10, 15),
+            'hospitalBedsByRequestedTime' => $this->hospitalBedsByRequestedTime(
+                $reported_cases = $this->input['reportedCases'],
+                $estimated_cases = 10,
+                $percentage = 15,
+                $beds_percentage = 35
+            )
         ];
 
         $this->output['severeImpact'] = [
             'currentlyInfected' => $this->currentlyInfected($this->input['reportedCases'], 50),
             'infectionsByRequestedTime' => $this->infectionsByRequestedTime($this->input['reportedCases'], 50),
+            'severeCasesByRequestedTime' => $this->severeCasesByRequestedTime($this->input['reportedCases'], 50, 15),
+            'hospitalBedsByRequestedTime' => $this->hospitalBedsByRequestedTime(
+                $reported_cases = $this->input['reportedCases'],
+                $estimated_cases = 50,
+                $percentage = 15,
+                $beds_percentage = 35
+            )
         ];
 
         return $this;

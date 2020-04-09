@@ -7,7 +7,9 @@ function covid19ImpactEstimator($data)
 {
     $input = json_decode($data, true);
 
-    $estimator= new ImpactEstimator($input);
+    $estimator = new ImpactEstimator($input);
+
+//    print("<pre>".print_r($estimator->toArray(),true)."</pre>");
 
     return $estimator->toJson();
 }
