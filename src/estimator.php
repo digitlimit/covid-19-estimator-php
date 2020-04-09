@@ -11,7 +11,7 @@ function covid19ImpactEstimator($data)
 
 //    print("<pre>".print_r($estimator->toArray(),true)."</pre>");
 
-    return $estimator->toJson();
+    return $estimator->toArray();
 }
 
 //$input = json_encode([
