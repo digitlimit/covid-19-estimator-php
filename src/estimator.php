@@ -2,16 +2,39 @@
 require_once dirname(__DIR__) . '/vendor/autoload.php';
 
 use Covid19Estimator\ImpactEstimator;
+use Covid19Estimator\Impact;
 
 function covid19ImpactEstimator($data)
 {
-    $input = $data; //json_decode($data, true);
+    $impact = new Impact($data, 10);
 
-    $estimator = new ImpactEstimator($input);
+    $severe_impact = new Impact($data, 50);
 
-//    print("<pre>".print_r($estimator->toArray(),true)."</pre>");
+    $output = [
+        'data' => $data,
+        'impact' => [
+            'currentlyInfected' => $impact->getCurrentlyInfected(),
+            'infectionsByRequestedTime' => $impact->getInfectionsByRequestedTime(),
+            'severeCasesByRequestedTime' => $impact->getSevereCasesByRequestedTime(15),
+            'hospitalBedsByRequestedTime' => $impact->getHospitalBedsByRequestedTime(15, 35),
+            'casesForICUByRequestedTime' => $impact->getCasesForICUByRequestedTime(5),
+            'casesForVentilatorsByRequestedTime' => $impact->getCasesForVentilatorsByRequestedTime(2),
+            'dollarsInFlight' => $impact->getDollarsInFlight()
+        ],
+        'severeImpact' => [
+            'currentlyInfected' => $severe_impact->getCurrentlyInfected(),
+            'infectionsByRequestedTime' => $severe_impact->getInfectionsByRequestedTime(),
+            'severeCasesByRequestedTime' => $severe_impact->getSevereCasesByRequestedTime(15),
+            'hospitalBedsByRequestedTime' => $severe_impact->getHospitalBedsByRequestedTime(15, 35),
+            'casesForICUByRequestedTime' => $severe_impact->getCasesForICUByRequestedTime(5),
+            'casesForVentilatorsByRequestedTime' => $severe_impact->getCasesForVentilatorsByRequestedTime(2),
+            'dollarsInFlight' => $severe_impact->getDollarsInFlight()
+        ]
+    ];
 
-    return $estimator->toArray();
+//    print("<pre>".print_r($output,true)."</pre>");
+
+    return $output;
 }
 
 //$input = json_encode([
