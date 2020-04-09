@@ -22,6 +22,7 @@ class ImpactEstimator{
     }
 
     protected function infectionsByRequestedTime($reported_cases, $estimated_cases){
+
         $currently_infected = $this->currentlyInfected($reported_cases, $estimated_cases);
         //there are 10 repeats of 3 days in 30days
 
@@ -50,7 +51,7 @@ class ImpactEstimator{
             $percentage
         );
 
-        return $available_beds - $severe_case_requested_time;
+        return intval($available_beds - $severe_case_requested_time);
     }
 
     protected function calculateAvailableTotalHospitalBeds($totalHospitalBeds, $percentage_available_beds){
@@ -87,6 +88,11 @@ class ImpactEstimator{
 
     protected function calculate(){
 
+//        The expected infectionsByRequestedTime 8724480 is not equal to your output 17040
+//   │ Failed asserting that 8724480 matches expected 17040.
+//   │
+//   │ /home/runner/work/covid-19-estimator-php/covid-19-estimator-php/audits/ch-1/challengeOneTest.php:52
+//   │
         //calculate impact
         $this->output['impact'] = [
             'currentlyInfected' => $this->currentlyInfected($this->input['reportedCases'], 10),
