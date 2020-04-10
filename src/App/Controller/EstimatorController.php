@@ -8,7 +8,7 @@ class EstimatorController
     {
         return [
             'data' => [],
-            'impact' => file_get_contents('php://input'),
+            'impact' => json_decode(stripslashes(file_get_contents('php://input'))),
             'severeImpact' => json_decode( file_get_contents( 'php://input' ), true )
         ];
 
