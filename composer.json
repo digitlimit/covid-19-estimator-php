@@ -4,16 +4,12 @@
     },
     "require": {
         "guzzlehttp/guzzle": "~6.0",
-        "middlewares/fast-route": "^1.0",
-        "middlewares/request-handler": "^1.1",
-        "narrowspark/http-emitter": "^0.7.0",
-        "php-di/php-di": "^6.0",
-        "relay/relay": "^2.0",
-        "zendframework/zend-diactoros": "^2.1"
+        "monolog/monolog": "1.25.1"
     },
     "autoload": {
         "psr-4": {
-            "Covid19Estimator\\": "src/"
+            "Covid19Estimator\\": "src/",
+            "App\\": "src/App/"
         }
     }
 }
