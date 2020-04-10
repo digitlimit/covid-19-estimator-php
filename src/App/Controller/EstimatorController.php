@@ -9,7 +9,7 @@ class EstimatorController
         if(!$data){
            return [
                 'data' => '',
-                'impact' => json_decode(file_get_contents('php://input'), true),
+                'impact' => json_decode(file_get_contents('php://input')),
                 'severeImpact' => ''
            ];
         }
