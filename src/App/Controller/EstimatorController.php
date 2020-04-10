@@ -18,19 +18,19 @@ class EstimatorController
             'totalHospitalBeds' => $json['totalHospitalBeds']
         ];
 
-        return [
-            'data' => [],
-            'impact' => $data,
-            'severeImpact' => $data
-        ];
-
-        if(!$data){
-           return [
-                'data' => '',
-                'impact' => file_get_contents('php://input'),
-                'severeImpact' => ''
-           ];
-        }
+//        return [
+//            'data' => [],
+//            'impact' => $data,
+//            'severeImpact' => $data
+//        ];
+//
+//        if(!$data){
+//           return [
+//                'data' => '',
+//                'impact' => file_get_contents('php://input'),
+//                'severeImpact' => ''
+//           ];
+//        }
 
         $impact = new Impact($data, 10);
 
