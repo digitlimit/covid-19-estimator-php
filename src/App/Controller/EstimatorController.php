@@ -6,6 +6,14 @@ class EstimatorController
 {
     public function estimate(array $data)
     {
+        if(!$data){
+           return [
+                'data' => '',
+                'impact' => '',
+                'severeImpact' => ''
+           ];
+        }
+
         $impact = new Impact($data, 10);
 
         $severe_impact = new Impact($data, 50);
