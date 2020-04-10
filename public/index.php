@@ -1,20 +1,26 @@
 <?php
 declare(strict_types=1);
+define('BASE_PATH', dirname(__DIR__));
 
-require_once dirname(__DIR__) . '/vendor/autoload.php';
+require_once BASE_PATH . '/vendor/autoload.php';
 
 use App\Lib\App;
 use App\Lib\Router;
 use App\Lib\Request;
 use App\Lib\Response;
 use App\Controller\EstimatorController;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 
 function dd($data){
-
-
     var_dump($data);
-
     die();
+}
+
+function tell(){
+    $log = new Logger('name');
+    $log->pushHandler(new StreamHandler(BASE_PATH . "/logs.log", Logger::WARNING));
+    return $log;
 }
 
 Router::post('/api/v1/on-covid-19', function (Request $request, Response $response)

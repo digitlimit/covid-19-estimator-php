@@ -34,17 +34,12 @@ class Logger extends \Monolog\Logger
     public static function enableSystemLogs()
     {
 
-        $LOG_PATH = Config::get('LOG_PATH', __DIR__ . '/../../logs');
+        $LOG_PATH = Config::get('LOG_PATH', BASE_PATH . '/logs');
 
         // Error Log
         self::$loggers['error'] = new Logger('errors');
         self::$loggers['error']->pushHandler(new StreamHandler("{$LOG_PATH}/errors.log"));
         ErrorHandler::register(self::$loggers['error']);
-
-        // Logs
-        self::$loggers['logs'] = new Logger('logs');
-        self::$loggers['logs']->pushHandler(new StreamHandler("{$LOG_PATH}/logs.log"));
-        ErrorHandler::register(self::$loggers['logs']);
 
         // Request Log
         $data = [

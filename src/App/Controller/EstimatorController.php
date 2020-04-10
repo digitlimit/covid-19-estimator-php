@@ -5,7 +5,9 @@ use Covid19Estimator\Impact;
 class EstimatorController
 {
     public function estimate(array $data)
-    {
+    {   tell()->info(file_get_contents('php://input'));
+        tell()->info(json_decode(file_get_contents('php://input')));
+
         if(!$data){
            return [
                 'data' => '',
