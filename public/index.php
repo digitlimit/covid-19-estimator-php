@@ -9,15 +9,23 @@ use App\Lib\Request;
 use App\Lib\Response;
 use App\Controller\EstimatorController;
 
+function dd($data){
+
+
+    var_dump($data);
+
+    die();
+}
+
 Router::post('/api/v1/on-covid-19', function (Request $request, Response $response)
 {
-    $estimate = (new EstimatorController())->estimate($request->getJSON());
+    $estimate = (new EstimatorController())->estimate($request->getRawJSON());
     $response->status(200)->toJSON($estimate);
 });
 
 Router::post('/api/v1/on-covid-19/(json|xml)', function (Request $request, Response $response)
 {
-    $estimate = (new EstimatorController())->estimate($request->getJSON());
+    $estimate = (new EstimatorController())->estimate($request->getRawJSON());
 
     if($request->params[0] == 'json'){
         $response->status(200)->toJSON($estimate);
@@ -25,6 +33,25 @@ Router::post('/api/v1/on-covid-19/(json|xml)', function (Request $request, Respo
         $response->status(200)->toXML($estimate);
     }
 });
+
+Router::get('/api/v1/on-covid-19', function (Request $request, Response $response)
+{
+
+    $estimate = (new EstimatorController())->estimate($request->getRawJSON());
+    $response->status(200)->toJSON($estimate);
+});
+
+Router::get('/api/v1/on-covid-19/(json|xml)', function (Request $request, Response $response)
+{
+    $estimate = (new EstimatorController())->estimate($request->getRawJSON());
+
+    if($request->params[0] == 'json'){
+        $response->status(200)->toJSON($estimate);
+    }else{
+        $response->status(200)->toXML($estimate);
+    }
+});
+
 
 $response = new Response();
 $response->status(404)->toJSON(['error' => "Not Found"]);

@@ -39,6 +39,35 @@ class Request
 
         // Receive the RAW post data.
         $content = trim(file_get_contents("php://input"));
+
+        $decoded = json_decode($content, true);
+
+        return $decoded;
+    }
+
+    public function getRawJSON()
+    {
+        $allowed_methods = [
+            'GET',
+            'POST',
+        ];
+
+        $allowed_content_types = [
+            'application/json',
+            'application/xml',
+        ];
+
+        if (!in_array($this->reqMethod, $allowed_methods)) {
+            return [];
+        }
+
+        if (!in_array(strtolower($this->contentType), $allowed_content_types)) {
+            return [];
+        }
+
+        // Receive the RAW post data.
+        $content = trim(file_get_contents("php://input"));
+
         $decoded = json_decode($content, true);
 
         return $decoded;
