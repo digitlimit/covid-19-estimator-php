@@ -56,4 +56,4 @@ Router::get('/api/v1/on-covid-19/(json|xml)', function (Request $request, Respon
 $response = new Response();
 $response->status(404)->toJSON(['error' => "Not Found"]);
 
-App::run();
+//App::run();
