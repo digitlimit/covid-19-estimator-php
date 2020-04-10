@@ -6,10 +6,13 @@ class EstimatorController
 {
     public function estimate(array $data)
     {
+        $json = file_get_contents('php://input');
+        $v = json_decode($json, true)['region']['name'];
+
         return [
             'data' => [],
-            'impact' => (array) json_decode(file_get_contents('php://input')),
-            'severeImpact' => file_get_contents( 'php://input' )
+            'impact' => $v,
+            'severeImpact' => file_get_contents('php://input')
         ];
 
         if(!$data){

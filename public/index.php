@@ -2,6 +2,11 @@
 declare(strict_types=1);
 define('BASE_PATH', dirname(__DIR__));
 
+//$v = "{\"region\":{\"name\":\"Africa\",\"avgAge\":19.7,\"avgDailyIncomeInUSD\":3,\"avgDailyIncomePopulation\":0.75},\"periodType\":\"weeks\",\"timeToElapse\":12,\"reportedCases\":599,\"population\":3767891,\"totalHospitalBeds\":51889}";
+//print_r(json_decode($v, true)['region']['name']);
+//
+//die();
+
 require_once BASE_PATH . '/vendor/autoload.php';
 
 use App\Lib\App;
