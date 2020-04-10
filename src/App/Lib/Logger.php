@@ -41,6 +41,11 @@ class Logger extends \Monolog\Logger
         self::$loggers['error']->pushHandler(new StreamHandler("{$LOG_PATH}/errors.log"));
         ErrorHandler::register(self::$loggers['error']);
 
+        // Logs
+        self::$loggers['logs'] = new Logger('logs');
+        self::$loggers['logs']->pushHandler(new StreamHandler("{$LOG_PATH}/logs.log"));
+        ErrorHandler::register(self::$loggers['logs']);
+
         // Request Log
         $data = [
             $_SERVER,

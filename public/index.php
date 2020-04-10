@@ -12,7 +12,7 @@ use App\Controller\EstimatorController;
 Router::post('/api/v1/on-covid-19', function (Request $request, Response $response)
 {
     $estimate = (new EstimatorController())->estimate($request->getJSON());
-    $response->status(201)->toJSON($estimate);
+    $response->status(200)->toJSON($estimate);
 });
 
 Router::post('/api/v1/on-covid-19/(json|xml)', function (Request $request, Response $response)
@@ -20,10 +20,13 @@ Router::post('/api/v1/on-covid-19/(json|xml)', function (Request $request, Respo
     $estimate = (new EstimatorController())->estimate($request->getJSON());
 
     if($request->params[0] == 'json'){
-        $response->status(201)->toJSON($estimate);
+        $response->status(200)->toJSON($estimate);
     }else{
-        $response->status(201)->toXML($estimate);
+        $response->status(200)->toXML($estimate);
     }
 });
+
+$response = new Response();
+$response->status(404)->toJSON(['error' => "Not Found"]);
 
 App::run();

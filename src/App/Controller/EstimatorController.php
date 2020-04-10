@@ -4,7 +4,7 @@ use Covid19Estimator\Impact;
 
 class EstimatorController
 {
-    public function estimate($data)
+    public function estimate(array $data)
     {
         $impact = new Impact($data, 10);
 
