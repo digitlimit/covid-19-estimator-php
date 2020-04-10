@@ -8,9 +8,9 @@ class EstimatorController
     {
         if(!$data){
            return [
-                'data' => file_get_contents('php://input'),
-                'impact' => file_get_contents('php://input'),
-                'severeImpact' => $_SERVER['REQUEST_METHOD']
+                'data' => '',
+                'impact' => json_decode(file_get_contents('php://input'), true),
+                'severeImpact' => ''
            ];
         }
 
