@@ -9,13 +9,6 @@ use App\Lib\Request;
 use App\Lib\Response;
 use App\Controller\EstimatorController;
 
-echo 99;
-
-Router::get('/api/v1/on-covid-19', function (Request $request, Response $response)
-{
-   echo 'aaha';
-});
-
 Router::post('/api/v1/on-covid-19', function (Request $request, Response $response)
 {
     $estimate = (new EstimatorController())->estimate($request->getJSON());
