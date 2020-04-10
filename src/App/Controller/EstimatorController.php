@@ -9,8 +9,8 @@ class EstimatorController
         if(!$data){
            return [
                 'data' => '',
-                'impact' => '',
-                'severeImpact' => ''
+                'impact' => $_POST,
+                'severeImpact' => $_GET
            ];
         }
 
