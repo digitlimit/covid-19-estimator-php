@@ -7,11 +7,11 @@ class EstimatorController
     public function estimate(array $data)
     {
         return [
-            'data' => '',
+            'data' => json_decode( file_get_contents( 'php://input' )),
             'impact' => file_get_contents('php://input'),
-            'severeImpact' => ''
+            'severeImpact' => json_decode( file_get_contents( 'php://input' ), true )
         ];
-        
+
         if(!$data){
            return [
                 'data' => '',
