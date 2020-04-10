@@ -7,9 +7,7 @@ class EstimatorController
     public function estimate(array $data)
     {
         return [
-            'data' => json_decode( file_get_contents( 'php://input' )),
             'impact' => file_get_contents('php://input'),
-            'severeImpact' => json_decode( file_get_contents( 'php://input' ), true )
         ];
 
         if(!$data){
