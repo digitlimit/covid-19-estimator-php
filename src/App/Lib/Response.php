@@ -21,6 +21,13 @@ class Response
         echo json_encode($data, true);
     }
 
+    public function toPlainText($text)
+    {
+        http_response_code($this->status);
+        header('Content-Type: text/plain');
+        echo $text;
+    }
+
     public function toXML($data = [])
     {
         http_response_code($this->status);

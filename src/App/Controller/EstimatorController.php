@@ -1,6 +1,7 @@
 <?php namespace App\Controller;
 
 use Covid19Estimator\Impact;
+use App\Lib\App;
 
 class EstimatorController
 {
@@ -17,20 +18,6 @@ class EstimatorController
             'population' => $json['population'],
             'totalHospitalBeds' => $json['totalHospitalBeds']
         ];
-
-//        return [
-//            'data' => [],
-//            'impact' => $data,
-//            'severeImpact' => $data
-//        ];
-//
-//        if(!$data){
-//           return [
-//                'data' => '',
-//                'impact' => file_get_contents('php://input'),
-//                'severeImpact' => ''
-//           ];
-//        }
 
         $impact = new Impact($data, 10);
 
@@ -58,5 +45,4 @@ class EstimatorController
             ]
         ];
     }
-
 }
