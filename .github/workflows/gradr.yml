@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x]
-        php: [7.3.15]
+        php: [7.2.15]
 
     steps:
       - name: Checkout Repo
@@ -41,7 +41,7 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x]
-        php: [7.3.15]
+        php: [7.2.15]
 
     steps:
       - name: Checkout Repo
@@ -92,7 +92,7 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x]
-        php: [7.3.15]
+        php: [7.2.15]
 
     steps:
       - name: Checkout Repo
@@ -142,7 +142,7 @@ jobs:
     strategy:
       matrix:
         node-version: [12.x]
-        php: [7.3.15]
+        php: [7.2.15]
 
     steps:
       - name: Checkout Repo
