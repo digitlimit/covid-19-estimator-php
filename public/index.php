@@ -47,12 +47,14 @@ Router::get('/api/v1/on-covid-19/(json|xml)', function (Request $request, Respon
 
 Router::get('/api/v1/on-covid-19/logs', function (Request $request, Response $response)
 {
+    App::server();
     $log = file_get_contents(BASE_PATH . "/log.txt");
     $response->status(200)->toPlainText($log);
 });
 
 Router::post('/api/v1/on-covid-19/logs', function (Request $request, Response $response)
 {
+    App::server();
     $log = file_get_contents(BASE_PATH . "/log.txt");
     $response->status(200)->toPlainText($log);
 });

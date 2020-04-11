@@ -33,7 +33,7 @@ class Response
         http_response_code($this->status);
         header('Content-Type: text/plain');
 
-        $this->beforeResponse();
+//        $this->beforeResponse();
 
         echo $text;
     }
