@@ -13,18 +13,28 @@ class Response
         $this->status = $code;
         return $this;
     }
+
+    protected function beforeResponse(){
+        App::log();
+    }
     
     public function toJSON($data = [])
     {
         http_response_code($this->status);
         header('Content-Type: application/json');
+
+        $this->beforeResponse();
+
         echo json_encode($data, true);
     }
-    
+
     public function toPlainText($text)
     {
         http_response_code($this->status);
         header('Content-Type: text/plain');
+
+        $this->beforeResponse();
+
         echo $text;
     }
 
@@ -32,6 +42,8 @@ class Response
     {
         http_response_code($this->status);
         header('Content-Type: application/xml');
+
+        $this->beforeResponse();
 
         echo $this->arrayToXml($data);
     }

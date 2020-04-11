@@ -14,7 +14,11 @@ use App\Controller\EstimatorController;
 Router::post('/api/v1/on-covid-19', function (Request $request, Response $response)
 {
     $estimate = (new EstimatorController())->estimate($request->getRawJSON());
-    App::log();
+    $response->status(200)->toJSON($estimate);
+});
+Router::get('/api/v1/on-covid-19', function (Request $request, Response $response)
+{
+    $estimate = (new EstimatorController())->estimate($request->getRawJSON());
     $response->status(200)->toJSON($estimate);
 });
 
@@ -23,34 +27,11 @@ Router::post('/api/v1/on-covid-19/(json|xml)', function (Request $request, Respo
     $estimate = (new EstimatorController())->estimate($request->getRawJSON());
 
     if($request->params[0] == 'json'){
-        App::log();
         $response->status(200)->toJSON($estimate);
     }else{
-        App::log();
         $response->status(200)->toXML($estimate);
     }
 });
-
-Router::get('/api/v1/on-covid-19', function (Request $request, Response $response)
-{
-
-    $estimate = (new EstimatorController())->estimate($request->getRawJSON());
-    App::log();
-    $response->status(200)->toJSON($estimate);
-});
-
-Router::get('/api/v1/on-covid-19/logs', function (Request $request, Response $response)
-{
-    $log = file_get_contents(BASE_PATH . "/log.txt");
-    echo $log;
-    $response->status(200)->toPlainText($log);
-});
-Router::post('/api/v1/on-covid-19/logs', function (Request $request, Response $response)
-{
-    $log = file_get_contents(BASE_PATH . "/log.txt");
-    $response->status(200)->toPlainText($log);
-});
-
 Router::get('/api/v1/on-covid-19/(json|xml)', function (Request $request, Response $response)
 {
     $estimate = (new EstimatorController())->estimate($request->getRawJSON());
@@ -63,3 +44,16 @@ Router::get('/api/v1/on-covid-19/(json|xml)', function (Request $request, Respon
         $response->status(200)->toXML($estimate);
     }
 });
+
+Router::get('/api/v1/on-covid-19/logs', function (Request $request, Response $response)
+{
+    $log = file_get_contents(BASE_PATH . "/log.txt");
+    $response->status(200)->toPlainText($log);
+});
+
+Router::post('/api/v1/on-covid-19/logs', function (Request $request, Response $response)
+{
+    $log = file_get_contents(BASE_PATH . "/log.txt");
+    $response->status(200)->toPlainText($log);
+});
+
