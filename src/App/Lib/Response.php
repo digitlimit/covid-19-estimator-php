@@ -4,20 +4,37 @@ namespace App\Lib;
 
 use SimpleXMLElement;
 
+/**
+ * Class Response
+ * @package App\Lib
+ */
 class Response
 {
     private $status = 200;
 
+    /**
+     * Status code
+     * @param int $code
+     * @return $this
+     */
     public function status(int $code)
     {
         $this->status = $code;
         return $this;
     }
 
+    /**
+     * Run before request
+     */
     protected function beforeResponse(){
         App::log();
     }
-    
+
+    /**
+     * Return JSON response
+     *
+     * @param array $data
+     */
     public function toJSON($data = [])
     {
         http_response_code($this->status);
@@ -28,6 +45,10 @@ class Response
         echo json_encode($data, true);
     }
 
+    /**
+     * Return a plain text
+     * @param $text
+     */
     public function toPlainText($text)
     {
         http_response_code($this->status);
@@ -38,6 +59,11 @@ class Response
         echo trim($text);
     }
 
+    /**
+     * Return XML response
+     *
+     * @param array $data
+     */
     public function toXML($data = [])
     {
         http_response_code($this->status);
@@ -48,6 +74,14 @@ class Response
         echo $this->arrayToXml($data);
     }
 
+    /**
+     * Convert array to XML
+     *
+     * @param $array
+     * @param null $rootElement
+     * @param null $xml
+     * @return mixed
+     */
     protected function arrayToXml($array, $rootElement = null, $xml = null)
     {
         $_xml = $xml;

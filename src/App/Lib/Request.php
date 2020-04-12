@@ -1,5 +1,9 @@
 <?php namespace App\Lib;
 
+/**
+ * Class Request
+ * @package App\Lib
+ */
 class Request
 {
     public $params;
@@ -13,6 +17,11 @@ class Request
         $this->contentType = !empty($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
     }
 
+    /**
+     * Get request body
+     *
+     * @return array|string
+     */
     public function getBody()
     {
         if ($this->reqMethod !== 'POST') {
@@ -27,6 +36,11 @@ class Request
         return $body;
     }
 
+    /**
+     * Get JSON response
+     *
+     * @return array|mixed
+     */
     public function getJSON()
     {
         if ($this->reqMethod !== 'POST') {
@@ -45,6 +59,11 @@ class Request
         return $decoded;
     }
 
+    /**
+     * Get Raw JSON response
+     *
+     * @return array|mixed
+     */
     public function getRawJSON()
     {
         $allowed_methods = [

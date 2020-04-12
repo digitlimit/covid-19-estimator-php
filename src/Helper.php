@@ -1,6 +1,10 @@
 <?php
 namespace Covid19Estimator;
 
+/**
+ * Class Helper
+ * @package Covid19Estimator
+ */
 class Helper{
 
     /*
@@ -19,6 +23,12 @@ class Helper{
         }
     }
 
+    /**
+     * Resolve time to elapse to days
+     *
+     * @param array $input
+     * @return int
+     */
     public static function resolveTimeToElapseToDays(array $input) : int {
         if ($input['periodType'] == 'weeks') {
             //e.g timeToElapse=38, periodType=weeks = 38 x 7
@@ -32,6 +42,13 @@ class Helper{
         }
     }
 
+    /**
+     * Get estimated number of infected based on period time
+     *
+     * @param array $input
+     * @param int $doubles_in_days
+     * @return int
+     */
     public static function getPeriodTimeEstimatedNumberOfInfected(array $input, $doubles_in_days=3) : int {
         return intdiv( self::resolveTimeToElapseToDays($input), $doubles_in_days);
     }

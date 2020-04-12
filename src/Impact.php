@@ -3,6 +3,10 @@ namespace Covid19Estimator;
 
 use Covid19Estimator\Helper;
 
+/**
+ * Class Impact
+ * @package Covid19Estimator
+ */
 class Impact{
 
     protected $input;
@@ -47,31 +51,66 @@ class Impact{
         return $this->infections_by_requested_time;
     }
 
+    /**
+     * Get currently infected
+     *
+     * @return int
+     */
     public function getCurrentlyInfected() : int{
         return $this->currently_affected;
     }
 
+    /**
+     * Get severe cases by requested time
+     *
+     * @param int $percentage
+     * @return int
+     */
     public function getSevereCasesByRequestedTime(int $percentage) : int
     {
         return intval($this->getInfectionsByRequestedTime() * ($percentage / 100));
     }
 
+    /**
+     * Get Hospital beds by requested time
+     *
+     * @param int $percentage
+     * @param int $beds_percentage
+     * @return int
+     */
     public function getHospitalBedsByRequestedTime(int $percentage, int $beds_percentage)
     {
         $available_beds = $this->input['totalHospitalBeds'] * ($beds_percentage/100);
         return intval($available_beds - $this->getSevereCasesByRequestedTime($percentage));
     }
 
+    /**
+     * Get cases for ICU by request time
+     *
+     * @param int $percentage
+     * @return int
+     */
     public function getCasesForICUByRequestedTime(int $percentage) : int
     {
         return intval($this->getInfectionsByRequestedTime() * ($percentage / 100));
     }
 
+    /**
+     * Get cases for ventilators by requested time
+     *
+     * @param int $percentage
+     * @return int
+     */
     public function getCasesForVentilatorsByRequestedTime(int $percentage) : int
     {
         return intval($this->getInfectionsByRequestedTime() * ($percentage / 100));
     }
 
+    /**
+     * Get dollars in flight
+     *
+     * @return false|float
+     */
     public function getDollarsInFlight(){
 
         $days = Helper::resolveTimeToElapseToDays($this->input);

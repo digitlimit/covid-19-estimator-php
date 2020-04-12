@@ -1,10 +1,14 @@
 <?php namespace App\Controller;
 
 use Covid19Estimator\Impact;
-use App\Lib\App;
 
 class EstimatorController
 {
+    /***
+     * Estimate Impact
+     * @param array $data
+     * @return array
+     */
     public function estimate(array $data)
     {
         $raw = file_get_contents('php://input');

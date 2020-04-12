@@ -1,7 +1,17 @@
 <?php namespace App\Lib;
 
+/**
+ * Class Router
+ * @package App\Lib
+ */
 class Router
 {
+    /**
+     * Handle GET requests
+     *
+     * @param $route
+     * @param $callback
+     */
     public static function get($route, $callback)
     {
         if (strcasecmp($_SERVER['REQUEST_METHOD'], 'GET') !== 0) {
@@ -11,6 +21,12 @@ class Router
         self::on($route, $callback);
     }
 
+    /**
+     * Handle post requests
+     *
+     * @param $route
+     * @param $callback
+     */
     public static function post($route, $callback)
     {
         if (strcasecmp($_SERVER['REQUEST_METHOD'], 'POST') !== 0) {
@@ -20,6 +36,12 @@ class Router
         self::on($route, $callback);
     }
 
+    /**
+     * Request helper
+     *
+     * @param $regex
+     * @param $cb
+     */
     public static function on($regex, $cb)
     {
         $params = $_SERVER['REQUEST_URI'];
