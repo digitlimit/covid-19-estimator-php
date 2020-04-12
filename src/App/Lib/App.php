@@ -17,7 +17,7 @@ class App
 
         $time = sprintf("%02d", $time); //prefix with leading zero if single
 
-        $log = "{$method}\t\t{$path}\t\t200\t\t{$time}\tms".PHP_EOL;
+        $log = "{$method}\t\t{$path}\t\t200\t\t{$time} ms".PHP_EOL;
         file_put_contents(BASE_PATH . "/log.txt", $log, FILE_APPEND);
     }
 

@@ -35,7 +35,7 @@ class Response
 
 //        $this->beforeResponse();
 
-        echo $text;
+        echo trim($text);
     }
 
     public function toXML($data = [])
