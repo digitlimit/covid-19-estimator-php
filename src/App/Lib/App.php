@@ -13,11 +13,14 @@ class App
         $method = $_SERVER['REQUEST_METHOD'];
         $path = $_SERVER['REQUEST_URI'];
 
-        $time = floor(($end_time - START_TIME)  * 1000);
+        $time = floor(($end_time - START_TIME)  * 1000); //round(microtime(true) - START_TIME, 2) * 1000;
 
         $time = sprintf("%02d", $time); //prefix with leading zero if single
 
-        $log = "{$method}\t\t{$path}\t\t200\t\t{$time} ms".PHP_EOL;
+        $longest = strlen('/api/v1/on-covid-19/json');
+        $path = str_pad($path,$longest," ");
+
+        $log = "{$method}\t\t{$path}\t\t200\t\t{$time}ms".PHP_EOL;
         file_put_contents(BASE_PATH . "/log.txt", $log, FILE_APPEND);
     }
 
